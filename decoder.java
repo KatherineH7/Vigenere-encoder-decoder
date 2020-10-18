@@ -68,11 +68,16 @@ public class decoder
           }
         }
 
+        message = message.toUpperCase();
+        message = message.replaceAll("\\p{Punct}", "");
+        message = message.replaceAll("\\d","");
+        message = message.replaceAll(" ","");
+
         boolean shift = true;
         if (method.equals("decode"))
           shift = false;
 
-        System.out.print(Vigenere(message, key, shift));
+        System.out.println(Vigenere(message, key, shift));
 
       }
 
@@ -86,20 +91,20 @@ public class decoder
     String result = "";
     for (int c = 0; c < text.length(); c++)
     {
-      for (int i = 0; (i < alphabet.length); i++)
+      for (int i = 0; i < alphabet.length; i++)
       {
         if (alphabet[i] == text.charAt(c))
             a = i;
       }
-      for (int i = 0; (i < alphabet.length); i++)
+      for (int i = 0; i < alphabet.length; i++)
       {
-        if (alphabet[i] == key.charAt(c % 4))
+        if (alphabet[i] == key.charAt(c % (key.length())))
             b = i;
       }
       if (encode == false)
-        result += alphabet[(Math.abs(a - b)) % 26];
+        result += alphabet[(a - b + 26) % 26];
       else
-        result += alphabet[((a + b)) % 26];
+        result += alphabet[(a + b) % 26];
     }
     return result;
   }

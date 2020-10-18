@@ -1,4 +1,5 @@
 import java.util.*;
+import java.lang.*;
 
 public class encoder
 {
@@ -25,7 +26,7 @@ public class encoder
         if (alphabet[i] == key.charAt(c % 4))
             b = i;
       }
-      System.out.print(alphabet[(a + b) % 26]);
+      System.out.print(alphabet[(Math.abs(a - b)) % 26]);
     }
   }
 

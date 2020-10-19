@@ -1,16 +1,11 @@
 import java.util.*;
 import java.lang.*;
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
 
 public class decoder
 {
   public static void main(String args[])
   {
-    File plaintext = null;
-    File keytext = null;
     String method = "";
     String message = "";
     String key = "";
@@ -18,8 +13,8 @@ public class decoder
     if (0 < args.length)
     {
         method = new String(args[0]);
-        plaintext = new File(args[1]);
-        keytext = new File(args[2]);
+        message = new String(args[1]);
+        key = new String(args[2]);
     }
     else
     {
@@ -27,48 +22,8 @@ public class decoder
     System.exit(0);
     }
 
-      BufferedReader br = null;
-
-      try
-      {
-        String sCurrentLine;
-
-        br = new BufferedReader(new FileReader(plaintext));
-
-        while ((sCurrentLine = br.readLine()) != null)
-          {
-            message += sCurrentLine;
-          }
-
-          BufferedReader br2 = null;
-
-         br2 = new BufferedReader(new FileReader(keytext));
-
-         while ((sCurrentLine = br2.readLine()) != null)
-           {
-             key += sCurrentLine;
-           }
-
-        }
-
-       catch (IOException e)
-        {
-          e.printStackTrace();
-        }
-
-        finally
-        {
-          try
-          {
-            if (br != null)br.close();
-          }
-          catch (IOException ex)
-          {
-            ex.printStackTrace();
-          }
-        }
-
         message = message.toUpperCase();
+        key = key.toUpperCase();
         message = message.replaceAll("\\p{Punct}", "");
         message = message.replaceAll("\\d","");
         message = message.replaceAll(" ","");
@@ -80,8 +35,6 @@ public class decoder
         System.out.println(Vigenere(message, key, shift));
 
       }
-
-
 
   static String Vigenere(String text, String key, Boolean encode)
   {
